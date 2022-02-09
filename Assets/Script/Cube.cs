@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
-{
-    private int numColor;
-
+{   
+    private int _numColor;
+        
     private void Start()
     {        
-        numColor = Random.Range(0, 2);
+        _numColor = Random.Range(0, 2);
 
-        switch (numColor)
+        switch (_numColor)
         {
             case 1:
                  GetComponent<MeshRenderer>().material.color = Color.red;
@@ -19,8 +19,7 @@ public class Cube : MonoBehaviour
                 GetComponent<MeshRenderer>().material.color = Color.blue;
                 break;
         }
-            
+        
     }
-   
 
 }

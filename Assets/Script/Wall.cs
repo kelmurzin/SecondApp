@@ -3,56 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+
 public class Wall : MonoBehaviour
 {
     public UnityEvent destroyCube;   
-    [SerializeField] private bool Active;
-    [SerializeField] private TMP_Text redText;
-    [SerializeField] private TMP_Text blueText;
-    private int red;
-    private int blue;
+
+    [SerializeField] private bool _active;
+    [SerializeField] private TMP_Text _redText;
+    [SerializeField] private TMP_Text _blueText;
+
+    private int _red;
+    private int _blue;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Active)
+        if (_active)
         {
-
             if (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.blue)
             {
                 Destroy(other.gameObject);
-                blue++;
-                blueText.text = blue.ToString();
+                _blue++;
+                _blueText.text = _blue.ToString();
                 destroyCube?.Invoke();
             }
-
             else
-            {
-                other.gameObject.GetComponent<DragCube>().boolFalse();                
-            }
-           
-        }
-        if(!Active)
-        {
+                other.gameObject.GetComponent<DragCube>().ActiveDrag = false;
             
+        }
+
+        if(!_active)
+        {           
             if (other.gameObject.GetComponent<MeshRenderer>().material.color == Color.red)
             {
                 Destroy(other.gameObject);
-                red++;
-                redText.text = red.ToString();
+                _red++;
+                _redText.text = _red.ToString();
                 destroyCube?.Invoke();
             }
-            else
-            {
-                other.gameObject.GetComponent<DragCube>().boolFalse();
-            }
-
+            else          
+                other.gameObject.GetComponent<DragCube>().ActiveDrag = false;          
         }
-
-
     }
-
-
-
-
 }
 
