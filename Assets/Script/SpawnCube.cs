@@ -1,29 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+/// <summary>
+/// Создает кубы.
+/// </summary>
 public class SpawnCube : MonoBehaviour
 {
-    public UnityEvent InitCube;
 
-    [SerializeField] private GameObject _cubePref;
-    [SerializeField] private int _number;
+    [SerializeField] private CubeColor cube;
+    [SerializeField] private QuantityCubs quantityCubs;
+    private int number;
     
     private void Start()
     {
+        number = quantityCubs.CountCube;
         StartCoroutine(Spawn());        
     }
 
     IEnumerator Spawn()
     {
         
-        if (_number > 0)
+        if (number > 0)
         {
             
-            for (int i = 0; i < _number; i++)
+            for (int i = 0; i < number; i++)
             {
-                Instantiate(_cubePref,transform.position, Quaternion.identity);
-                InitCube?.Invoke();
+                Instantiate(cube, transform.position, Quaternion.identity);
                 yield return new WaitForSeconds(1f);
             }
         }

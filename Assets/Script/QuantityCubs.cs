@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Отвечает за количесвто кубов.
+/// </summary>
 public class QuantityCubs : MonoBehaviour
 {
-    [SerializeField] private GameObject _panel;
+    public int CountCube => countCube;
 
-    private int _number;
-
-    public void PlusNum() => _number++;
-
-    public void MinusNum()
+    [SerializeField] private int countCube;
+    [SerializeField] private GameManager gameManager;
+    
+    private void Start() => WallCheck.onCubeDestroy += MinusCount;
+    
+    private void OnDestroy() => WallCheck.onCubeDestroy -= MinusCount;
+    
+    private void MinusCount()
     {
-        if (_number > 0)
-            _number--;
-        if(_number == 0)
-            GameOver();
+        countCube--;
+        if (countCube <= 0)
+            gameManager.ChangeGameActive(false);        
     }
 
-    private void GameOver() => _panel.SetActive(true);
 }
